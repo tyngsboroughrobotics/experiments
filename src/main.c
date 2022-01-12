@@ -38,8 +38,8 @@ int main() {
         .right_offset = 1.0,
     };
 
-    drive_wheels(wheels, FORWARD, 5);
-    drive_wheels(wheels, REVERSE, 5);
+    drive_wheels(wheels, FORWARD, CM(5));
+    drive_wheels(wheels, REVERSE, CM(5));
 
     return 0;
 }
