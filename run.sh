@@ -4,9 +4,7 @@ USER="pi@raspberrypi.local"
 PASSWORD="wallaby"
 PROJECT_PATH="/home/root/Documents/KISS/KIPR/botball-2022"
 
-echo -n "Installing..."
-
-zip -rq game.zip . -x .\*
+echo "==> Installing..."
 
 sshpass -p $PASSWORD ssh $USER "
     sudo rm -rf \"$PROJECT_PATH\"
@@ -14,8 +12,8 @@ sshpass -p $PASSWORD ssh $USER "
     sudo chmod -R a+rwX \"$PROJECT_PATH\"
 "
 
-sshpass -p $PASSWORD scp ./game.zip $USER:$PROJECT_PATH
-
+zip -rq game.zip . -x .\*
+sshpass -p $PASSWORD scp game.zip $USER:$PROJECT_PATH
 rm game.zip
 
 sshpass -p $PASSWORD ssh $USER "
@@ -23,9 +21,7 @@ sshpass -p $PASSWORD ssh $USER "
     unzip -q game.zip -d .
     rm game.zip
     mkdir -p bin
-    gcc -o bin/botball_user_program -lwallaby -lpthread -lm -Iinclude src/*.c
+    gcc -o bin/botball_user_program -std=c11 -lwallaby -lpthread -lm -Iinclude -Wall -g src/*.c
+    echo '==> Running...'
+    ./bin/botball_user_program
 "
-
-echo " done"
-
-sshpass -p $PASSWORD ssh $USER "$PROJECT_PATH/bin/botball_user_program"

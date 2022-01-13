@@ -7,6 +7,7 @@
 #define M(x) ((x) / 100.0)
 #define CM(x) (x)
 #define MM(x) ((x) * 10.0)
+#define IN(x) ((x) * 2.54)
 
 typedef double Duration;
 
